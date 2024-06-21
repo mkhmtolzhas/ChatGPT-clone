@@ -17,13 +17,11 @@ const server = http.createServer(app);
 // Handle WebSocket connections with origin validation
 server.on('upgrade', (request, socket, head) => {
   const origin = request.headers.origin;
-  if (origin === 'http://localhost:3001') {
+
     wss.handleUpgrade(request, socket, head, (ws) => {
       wss.emit('connection', ws, request);
     });
-  } else {
-    socket.destroy();
-  }
+  
 });
 
 server.listen(PORT, () => {
